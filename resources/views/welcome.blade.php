@@ -48,14 +48,41 @@
     </div>
 
 </body>
-<div class="container py-6">
-    <form>
-        <div style=" text-align: center;">
-            <h1>แจ้งรายการซ่อมใหม่</h1>
-        </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+<div class="container">
+    <div class="row">
+        <form action="" method="post">
+            <div class="col-md-5">
+                <label for="emp_name" class="form-label">ชื่อ</label>
+                <input type="text" name="emp_name" id="" class="form-control" placeholder="ระบุชื่อ">
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td scope="col"></td>
+                            <td scope="col">#</td>
+                            <td scope="col">รหัสทรัพสิน</td>
+                            <td scope="col">ประเภท</td>
+                            <td scope="col">หมายเหตุ</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="radio" name="radio" id="radio"></td>
+                            <td> <label for="radio">fsdfds</label></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="" id=""></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </form>
+    </div>
+
 </div>
 
 </html>
