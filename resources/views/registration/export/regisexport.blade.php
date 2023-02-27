@@ -1,0 +1,45 @@
+<table>
+    <thead>
+        <tr>
+            <th>ที่</th>
+            <th>รหัส</th>
+            <th>ซีเรียลนัมเบอร์</th>
+            <th>ยี่ห้อ</th>
+            <th>ประเภท</th>
+            <th>รุ่น</th>
+            <th>สี</th>
+            <th>แผนก</th>
+            <th>วันที่เข้าระบบ</th>
+            <th>ใช้งาน</th>
+            <th>ยกเลิก</th>
+            <th>อ้างอิง</th>
+        </tr>
+    </thead>
+    {{$i = 1}}
+    <tbody>
+        @foreach($data as $row)
+        <tr>
+            <td>{{$i++}}</td>
+            <td>{{$row->property_key->key}}{{$row->property_code}}</td>
+            <td>{{$row->serial_number}}</td>
+            <td>{{$row->brand}}</td>
+            <td>{{$row->type}}</td>
+            <td>{{$row->spec}}</td>
+            <td>{{$row->color}}</td>
+            <td>{{$row->employee->department->name}}</td>
+            <td>{{$row->created_at->format('d/m/Y')}}</td>
+            <td>
+                @if($row->deleted_at == null)
+                    ✓
+                @endif
+            </td>
+            <td>
+                @if($row->deleted_at != null)
+                    ✓
+                @endif
+            </td>
+            <td>{{$row->refer}}</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>

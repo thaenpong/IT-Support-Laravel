@@ -12,7 +12,8 @@ use App\Models\unregistration;
 use App\Models\registration_user_log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
+use App\Exports\Registration_Export;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -173,5 +174,10 @@ class registration_ctl extends Controller
         $fpdf->Output();
         //$fpdf->Output('D', 'Test.pdf');
         exit;
+    }
+
+    public function export()
+    {
+        return Excel::download(new Registration_Export, 'ทะเบียนทรัพสิน.xlsx');
     }
 }
