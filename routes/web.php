@@ -27,6 +27,8 @@ Route::get('/', function () {
     return view('welcome')->with('data', $data)->with('emp', $emp);
 })->name('index');
 
+Route::post('/request', [request_repair::class, 'request_repair'])->name('request_repair');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
