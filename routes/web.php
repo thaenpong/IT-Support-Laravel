@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registration_ctl;
 use App\Http\Controllers\employee_ctl;
 use App\Http\Controllers\department_ctl;
+use App\Http\Controllers\request_repair;
 use App\Models\department;
 use App\Models\employee;
 use App\Models\registration;
@@ -21,7 +22,9 @@ use Laravel\Jetstream\Rules\Role;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = registration::all();
+    $emp = employee::all();
+    return view('welcome')->with('data', $data)->with('emp', $emp);
 })->name('index');
 
 Route::middleware([
@@ -44,7 +47,7 @@ Route::middleware([
     Route::post('/registration/unregis/{id}', [registration_ctl::class, 'unregis'])->name('registration_unregis');
     Route::get('/registration/view/unregistration/{key}', [registration_ctl::class, 'unregistration'])->name('unregistration');
     Route::get('/registration/unregispdf/{id}', [registration_ctl::class, 'unregispdf'])->name('unregispdf');
-    Route::get('/registration/export', [registration_ctl::class, 'export'])->name('regisexport');
+    Route::get('/registration/export', [registration_ctl::class, 'export'])->name('registration_export');
     //Employee
     Route::get('/employee', [employee_ctl::class, 'index'])->name('employee');
     Route::post('/employee/new', [employee_ctl::class, 'new'])->name('employee_new');

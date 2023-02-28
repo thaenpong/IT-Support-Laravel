@@ -12,6 +12,7 @@
             <th>วันที่เข้าระบบ</th>
             <th>ใช้งาน</th>
             <th>ยกเลิก</th>
+            <th>วันที่ยกเลิกใช้งาน</th>
             <th>อ้างอิง</th>
         </tr>
     </thead>
@@ -38,7 +39,16 @@
                     ✓
                 @endif
             </td>
-            <td>{{$row->refer}}</td>
+            <td>
+                @if($row->deleted_at != null)
+                {{$row->deleted_at->format('d/m/Y')}}
+                @endif
+            </td>
+            @if($row->deleted_at != null)
+                <td>ถอดถอนแล้ว</td>
+            @else
+                <td>{{$row->employee->name}}</td>
+            @endif
         </tr>
         @endforeach
     </tbody>

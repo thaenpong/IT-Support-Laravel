@@ -140,6 +140,14 @@
                         </div>
                         <div class="row">
                             <div class="col-4 py-2">
+                                สาเหตุ :
+                            </div>
+                            <span class="col-6 py-2">
+                                {{$registration->unregis->cause}}
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 py-2">
                                 ถอดถอนโดย :
                             </div>
                             <span class="col-6 py-2">
@@ -186,7 +194,7 @@
                         <a class="btn btn-secondary mb-3 " href="{{ url()->previous() }}">Back</a>
 
                         @else
-                        <a class="btn btn-info mb-3 " href="{{ route('registration',['key' => 'all']) }}">Back</a>
+                        <a class="btn btn-info mb-3 " href="{{ route('unregistration',['key' => 'all']) }}">Back</a>
                         <a class="btn btn-primary mb-3" href="{{route('unregispdf',['id'=> $registration->id])}}" target="_blank">Download</a>
                         @endif
                     </div>

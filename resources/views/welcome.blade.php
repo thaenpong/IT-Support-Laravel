@@ -14,13 +14,16 @@
 </head>
 <script>
     $(document).ready(function() {
-        $("#registration_search").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
+        $("#registration_check").on("click", function() {
+            var value = $('#registration_search').val().toLowerCase();
             $("#registration tr").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+            $('#registration').show();
         });
     });
+
+    
 </script>
 <style>
     .my-custom-scrollbar {
@@ -35,6 +38,7 @@
 </style>
 
 <body>
+    <form action="" method="post">
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{Route('index')}}">IT -Support</a>
@@ -72,7 +76,20 @@
                         รายระเอียด
                     </div>
                     <div class="card-body">
-
+                        <div class="input-group mb-3">
+                            <input list="browsers" name="browser" id="registration_search" class="form-control" placeholder="ระบุชือ">
+                            <datalist id="browsers">
+                                @foreach($emp as $emp)
+                                <option value="{{$emp->name}}">
+                                @endforeach
+                            </datalist>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="registration_check">ค้นหา</button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" aria-label="With textarea" placeholder="รายระเอียด"></textarea>
+                        </div>
                     </div>
                 </div>
 
@@ -80,7 +97,6 @@
             <div class="col-md-6">
                 <div class="card my-3">
                     <div class="card-header">
-
                     </div>
                     <div class="card-body">
                         <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -89,84 +105,27 @@
                                     <tr>
                                         <td scope="col"></td>
                                         <td scope="col">#</td>
-                                        <td scope="col">รหัสทรัพสิน</td>
                                         <td scope="col">ประเภท</td>
+                                        <td scope="col">รหัสท</td>
+                                        <td scope="col">ผู้ใช้</td>
                                         <td scope="col">หมายเหตุ</td>
                                     </tr>
                                 </thead>
-                                <tbody id="registration">
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id"></td>
-                                        <td scope="col"><label for="id">1</label></td>
-                                        <td><label for="id">Cs.65.01</label></td>
-                                        <td><label for="id">Server</label></td>
-                                        <td hidden><label for="id" hidden>Edge</label></td>
-                                        <td><label for="id">Server</label></td>
+                                <tbody id="registration" style="display: none">
+                                    @php($i=1)
+                                    @foreach($data as $row)
+                                    <tr id="data">
+                                        <td class="">{{$i++}}</td>
+                                        <td><input type="radio" name="res_id" id="res_id{{$row->id}}" value="{{$row->id}}"  required></td>
+                                        <td><label for="res_id{{$row->id}}">{{$row->type}}</label></td>
+                                        <td> {{$row->property_key->key}}{{$row->property_code}}</td>
+                                        
+
+                                        <td>{{$row->employee->name}}</td>
+
+                                        <td>{{$row->refer}}</td>
                                     </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id2"></td>
-                                        <td scope="col"><label for="id2">2</label></td>
-                                        <td><label for="id2">ms.61.01</label></td>
-                                        <td><label for="id2">Server</label></td>
-                                        <td><label for="id2">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id3"></td>
-                                        <td scope="col"><label for="id3">3</label></td>
-                                        <td><label for="id3">kb.53.05</label></td>
-                                        <td><label for="id3">Server</label></td>
-                                        <td><label for="id3">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id2"></td>
-                                        <td scope="col"><label for="id2">2</label></td>
-                                        <td><label for="id2">ms.61.01</label></td>
-                                        <td><label for="id2">Server</label></td>
-                                        <td><label for="id2">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id3"></td>
-                                        <td scope="col"><label for="id3">3</label></td>
-                                        <td><label for="id3">kb.53.05</label></td>
-                                        <td><label for="id3">Server</label></td>
-                                        <td><label for="id3">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id"></td>
-                                        <td scope="col"><label for="id">1</label></td>
-                                        <td><label for="id">Cs.65.01</label></td>
-                                        <td><label for="id">Server</label></td>
-                                        <td hidden><label for="id" hidden>Edge</label></td>
-                                        <td><label for="id">Server</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id2"></td>
-                                        <td scope="col"><label for="id2">2</label></td>
-                                        <td><label for="id2">ms.61.01</label></td>
-                                        <td><label for="id2">Server</label></td>
-                                        <td><label for="id2">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id3"></td>
-                                        <td scope="col"><label for="id3">3</label></td>
-                                        <td><label for="id3">kb.53.05</label></td>
-                                        <td><label for="id3">Server</label></td>
-                                        <td><label for="id3">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id2"></td>
-                                        <td scope="col"><label for="id2">2</label></td>
-                                        <td><label for="id2">ms.61.01</label></td>
-                                        <td><label for="id2">Server</label></td>
-                                        <td><label for="id2">Chrome</label></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="id" id="id3"></td>
-                                        <td scope="col"><label for="id3">3</label></td>
-                                        <td><label for="id3">kb.53.05</label></td>
-                                        <td><label for="id3">Server</label></td>
-                                        <td><label for="id3">Chrome</label></td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
 
                             </table>
@@ -180,70 +139,13 @@
 
 
     </div>
-    <div class="container">
-
-        <div class="row">
-            <form action="" method="post">
-                <div class="col-md-5">
-                    <label for="emp_name" class="form-label">ชื่อ</label>
-                    <input list="browsers" name="browser" id="registration_search" class="form-control">
-                    <datalist id="browsers">
-                        <option value="Edge">
-                        <option value="Firefox">
-                        <option value="Chrome">
-                        <option value="Opera">
-                        <option value="Safari">
-                    </datalist>
-                </div>
-                <div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td scope="col"></td>
-                                <td scope="col">#</td>
-                                <td scope="col">รหัสทรัพสิน</td>
-                                <td scope="col">ประเภท</td>
-                                <td scope="col">หมายเหตุ</td>
-                            </tr>
-                        </thead>
-                        <tbody id="registration">
-                            <tr>
-                                <td><input type="radio" name="id" id="id"></td>
-                                <td scope="col"><label for="id">1</label></td>
-                                <td><label for="id">Cs.65.01</label></td>
-                                <td><label for="id">Server</label></td>
-                                <td hidden><label for="id" hidden>Edge</label></td>
-                                <td><label for="id">Server</label></td>
-                            </tr>
-                            <tr>
-                                <td><input type="radio" name="id" id="id2"></td>
-                                <td scope="col"><label for="id2">2</label></td>
-                                <td><label for="id2">ms.61.01</label></td>
-                                <td><label for="id2">Server</label></td>
-                                <td><label for="id2">Chrome</label></td>
-                            </tr>
-                            <tr>
-                                <td><input type="radio" name="id" id="id3"></td>
-                                <td scope="col"><label for="id3">3</label></td>
-                                <td><label for="id3">kb.53.05</label></td>
-                                <td><label for="id3">Server</label></td>
-                                <td><label for="id3">Chrome</label></td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-            </form>
-        </div>
-
-    </div>
-
+    </form>
 </body>
 <script type="text/javascript">
     function handleSelect(elm) {
         window.location = elm.value;
     }
+    
 </script>
 
 </html>

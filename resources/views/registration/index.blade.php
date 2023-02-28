@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <form action="" method="post">
-                        <div class="input-group mb-3">
+                        <div class="input-group mb-3 py-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">ค้นหา</span>
                             </div>
@@ -39,7 +39,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-2 py-2">
+                    <a href="{{route('registration_export')}}" class="form-control btn btn-success">รายงาน</a>
 
                 </div>
                 <div class="col-md-2 py-2">
