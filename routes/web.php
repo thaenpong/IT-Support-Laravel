@@ -32,6 +32,7 @@ Route::get('/', function () {
 })->name('index');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::post('/request', function (Request $request) {
     $emp = employee::select('id')->where('name', $request->name)->first();
     //dd($emp->id);
@@ -43,6 +44,8 @@ Route::post('/request', function (Request $request) {
     return redirect()->route('index');
 })->name('request_repair');
 
+=======
+>>>>>>> parent of de52926 (add migrate request_repair)
 =======
 >>>>>>> parent of de52926 (add migrate request_repair)
 Route::middleware([
