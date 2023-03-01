@@ -16,14 +16,14 @@
     $(document).ready(function() {
         $("#registration_check").on("click", function() {
             var value = $('#registration_search').val().toLowerCase();
-            if (value != '') {
-                $("#registration tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-                $('#registration').show();
-            }
+            $("#registration tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+            $('#registration').show();
         });
     });
+
+    
 </script>
 <style>
     .my-custom-scrollbar {
@@ -38,36 +38,35 @@
 </style>
 
 <body>
-    <form action="{{route('request_repair')}}" method="post">
-        @csrf
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{Route('index')}}">IT -Support</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        @if (Route::has('login'))
-                        @auth
-                        <li class="nav-item">
-                            <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
-                        </li>
+    <form action="" method="post">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{Route('index')}}">IT -Support</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    @if (Route::has('login'))
+                    @auth
+                    <li class="nav-item">
+                        <a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a>
+                    </li>
 
-                        @else
-                        <li class="nav-item">
-                            <a href="{{ route('login') }}" class="nav-link">Log in</a>
-                        </li>
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a href="{{ route('register') }}" class="nav-link">Register</a>
-                        </li>
-                        @endif
-                        @endauth
-                        @endif
-                    </ul>
-                </div>
+                    @else
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Log in</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="nav-link">Register</a>
+                    </li>
+                    @endif
+                    @endauth
+                    @endif
+                </ul>
             </div>
+<<<<<<< HEAD
         </nav>
         <div class="container">
             <div class="row">
@@ -139,13 +138,88 @@
             </div>
 
 
+=======
+>>>>>>> parent of de52926 (add migrate request_repair)
         </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card my-3">
+                    <div class="card-header">
+                        รายระเอียด
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input list="browsers" name="browser" id="registration_search" class="form-control" placeholder="ระบุชือ">
+                            <datalist id="browsers">
+                                @foreach($emp as $emp)
+                                <option value="{{$emp->name}}">
+                                @endforeach
+                            </datalist>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="registration_check">ค้นหา</button>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" aria-label="With textarea" placeholder="รายระเอียด"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="card my-3">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td scope="col"></td>
+                                        <td scope="col">#</td>
+                                        <td scope="col">ประเภท</td>
+                                        <td scope="col">รหัสท</td>
+                                        <td scope="col">ผู้ใช้</td>
+                                        <td scope="col">หมายเหตุ</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="registration" style="display: none">
+                                    @php($i=1)
+                                    @foreach($data as $row)
+                                    <tr id="data">
+                                        <td class="">{{$i++}}</td>
+                                        <td><input type="radio" name="res_id" id="res_id{{$row->id}}" value="{{$row->id}}"  required></td>
+                                        <td><label for="res_id{{$row->id}}">{{$row->type}}</label></td>
+                                        <td> {{$row->property_key->key}}{{$row->property_code}}</td>
+                                        
+
+                                        <td>{{$row->employee->name}}</td>
+
+                                        <td>{{$row->refer}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
     </form>
 </body>
 <script type="text/javascript">
     function handleSelect(elm) {
         window.location = elm.value;
     }
+    
 </script>
 
 </html>
