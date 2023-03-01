@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\http\Controllers\repair_ctl;
+use App\http\Controllers\repair_ctl;
 use App\Http\Controllers\registration_ctl;
 use App\Http\Controllers\employee_ctl;
 use App\Http\Controllers\department_ctl;
@@ -74,5 +74,11 @@ Route::middleware([
     Route::post('/department/new', [department_ctl::class, 'new'])->name('department_new');
     Route::get('/department/delete/{id}', [department_ctl::class, 'delete'])->name('department_delete');
 
-    Route::get('/repair', [repair_ctl::class, 'new'])->name('repair');
+    //repair
+    Route::get('/repair', [repair_ctl::class, 'index'])->name('repair');
+    Route::get('/repair/detial/{id}', [repair_ctl::class, 'detail'])->name('repair_detail');
+    Route::get('/repair/accept/{id}', [repair_ctl::class, 'accept'])->name('repair_accept');
+    Route::get('/repair/own', [repair_ctl::class, 'ownrepair'])->name('ownrepair');
+    Route::get('/repair/all', [repair_ctl::class, 'allrepair'])->name('allrepair');
+    Route::post('/repair/donerepair/{id}', [repair_ctl::class, 'donerepair'])->name('donerepair');
 });

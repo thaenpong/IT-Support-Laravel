@@ -14,7 +14,6 @@
                 <a href="{{route('allrepair')}}" class="form-control btn btn-secondary">ทั้งหมด</a>
             </div>
         </div>
-
         <div class="table-responsive">
             <div class="card my-3">
                 <div class="card-header">
@@ -28,6 +27,7 @@
                             <th scope="col">รายระเอียด</th>
                             <th scope="col">ผู้แจ้ง</th>
                             <th scope="col">วันที่</th>
+                            <th scope="col">วันที่รับ</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,6 +40,7 @@
                             <td>{{$row->emp_behave}}</td>
                             <td>{{$row->emp->name}}</td>
                             <td>{{$row->created_at->format('d/m/Y')}}</td>
+
                             <td>
                                 <a href="{{route('repair_detail',['id'=>$row->id])}}"><span class="material-symbols-outlined">
                                         visibility
