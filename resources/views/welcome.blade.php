@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <textarea class="form-control" aria-label="With textarea" placeholder="รายระเอียด" name="behave"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" placeholder="รายระเอียด" name="behave" required></textarea>
                             </div>
                             <input type="submit" value="บันทึก" class="form-control btn btn-success">
                         </div>

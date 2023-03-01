@@ -15,12 +15,16 @@ return new class extends Migration
     {
         Schema::create('request_repairs', function (Blueprint $table) {
             $table->id();
-            $table->int('emp_id');
-            $table->int('regis_id');
+            $table->integer('emp_id');
+            $table->integer('regis_id');
             $table->string('emp_behave');
-            $table->int('admin_id');
-            $table->string('admin_behave');
+            $table->integer('admin_id')->nullable();
+            $table->dateTime('admin_date')->nullable();
+            $table->string('st_be')->nullable();
+            $table->string('st_af')->nullable();
+            $table->string('admin_behave')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

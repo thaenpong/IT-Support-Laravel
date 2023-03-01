@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use app\Models\registration;
-use app\Models\employee;
+use app\models\employee;
+//use app\models\request_repair as request_repairmodel;
 
 class request_repair extends Controller
 {
-    public function request_repair(Request $request)
+    public function index()
     {
-
-        return redirect()->route('index');
+        return view('repair.index');
     }
 }

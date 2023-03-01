@@ -1,14 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use app\http\Controllers\repair_ctl;
 use App\Http\Controllers\registration_ctl;
 use App\Http\Controllers\employee_ctl;
 use App\Http\Controllers\department_ctl;
-use App\Http\Controllers\request_repair;
+use App\Models\request_repair as req_repair;
 use App\Models\department;
 use App\Models\employee;
 use App\Models\registration;
 use Laravel\Jetstream\Rules\Role;
+use Illuminate\Http\Request;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +31,16 @@ Route::get('/', function () {
     return view('welcome')->with('data', $data)->with('emp', $emp);
 })->name('index');
 
-Route::post('/request', [request_repair::class, 'request_repair'])->name('request_repair');
+Route::post('/request', function (Request $request) {
+    $emp = employee::select('id')->where('name', $request->name)->first();
+    //dd($emp->id);
+    $req = new req_repair();
+    $req->emp_id = $emp->id;
+    $req->regis_id = $request->res_id;
+    $req->emp_behave = $request->behave;
+    $req->save();
+    return redirect()->route('index');
+})->name('request_repair');
 
 Route::middleware([
     'auth:sanctum',
@@ -60,4 +73,6 @@ Route::middleware([
     //Department
     Route::post('/department/new', [department_ctl::class, 'new'])->name('department_new');
     Route::get('/department/delete/{id}', [department_ctl::class, 'delete'])->name('department_delete');
+
+    Route::get('/repair', [repair_ctl::class, 'new'])->name('repair');
 });
