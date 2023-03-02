@@ -28,6 +28,7 @@ class repair_ctl extends Controller
         $repair = request_repair::find($id);
         $repair->admin_id = Auth::user()->id;
         $repair->admin_date = now();
+        $repair->st = '2';
         $repair->update();
 
         return redirect()->route('repair_detail', ['id' => $id]);
@@ -41,19 +42,21 @@ class repair_ctl extends Controller
 
     public function allrepair()
     {
-        $data = request_repair::withTrashed()->get();
+        $data = request_repair::withTrashed()->orderBy('created_at', 'desc')->get();
         return view('repair.allrepair')->with('data', $data);
     }
 
     public function donerepair(Request $request, $id)
     {
-        //dd($id);
-        //dd($request);
-        request_repair::find($id)->update([
-            'st_be' => $request->st_be,
-            'st_af' => $request->st_af,
-            'admin_behave' => $request->admin_behave,
-        ]);
+
+
+        $repair = request_repair::find($id);
+        $repair->st_be = $request->st_be;
+        $repair->st_af = $request->st_af;
+        $repair->admin_behave = $request->admin_behave;
+        $repair->st = '3';
+        $repair->update();
+
         request_repair::find($id)->delete();
         //$repair->st_be = $request->st_be;
         //$repair->save();

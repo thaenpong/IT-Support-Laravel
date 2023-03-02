@@ -31,8 +31,7 @@ Route::get('/', function () {
     return view('welcome')->with('data', $data)->with('emp', $emp);
 })->name('index');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 Route::post('/request', function (Request $request) {
     $emp = employee::select('id')->where('name', $request->name)->first();
     //dd($emp->id);
@@ -40,14 +39,11 @@ Route::post('/request', function (Request $request) {
     $req->emp_id = $emp->id;
     $req->regis_id = $request->res_id;
     $req->emp_behave = $request->behave;
+    $req->st = '1';
     $req->save();
     return redirect()->route('index');
 })->name('request_repair');
 
-=======
->>>>>>> parent of de52926 (add migrate request_repair)
-=======
->>>>>>> parent of de52926 (add migrate request_repair)
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

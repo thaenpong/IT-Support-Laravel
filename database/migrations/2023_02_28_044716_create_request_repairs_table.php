@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('st_be')->nullable();
             $table->string('st_af')->nullable();
             $table->string('admin_behave')->nullable();
+            $table->string('st')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
