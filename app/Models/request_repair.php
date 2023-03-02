@@ -20,7 +20,7 @@ class request_repair extends Model
         'st_af',
         'admin_behave'
     ];
-    public function employee()
+    public function emp()
     {
         return $this->hasOne(employee::class, 'id', 'emp_id');
     }
@@ -30,6 +30,6 @@ class request_repair extends Model
     }
     public function regis()
     {
-        return $this->hasOne(registration::class, 'id', 'regis_Id');
+        return $this->hasOne(registration::class, 'id', 'regis_id');
     }
 }

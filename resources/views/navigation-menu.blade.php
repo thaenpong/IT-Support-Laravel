@@ -24,6 +24,7 @@
                     <x-jet-nav-link href="{{ route('repair') }}" :active="request()->routeIs('repair')">
                         รายการแจ้งซ่อม
                     </x-jet-nav-link>
+
                 </div>
             </div>
 
@@ -153,6 +154,9 @@
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')">
                 พนักงานและแผนก
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('repair') }}" :active="request()->routeIs('repair')">
+                รายการแจ้งซ่อม
             </x-jet-responsive-nav-link>
         </div>
 
