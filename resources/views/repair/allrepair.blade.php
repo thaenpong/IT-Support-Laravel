@@ -27,7 +27,8 @@
                             <th scope="col">รายระเอียด</th>
                             <th scope="col">ผู้แจ้ง</th>
                             <th scope="col">วันที่</th>
-                            <th scope="col">วันที่รับ</th>
+                            <th scope="col">สถานะ</th>
+                            <th scope="col"></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -40,13 +41,18 @@
                             <td>{{$row->emp_behave}}</td>
                             <td>{{$row->emp->name}}</td>
                             <td>{{$row->created_at->format('d/m/Y')}}</td>
-
+                            @if($row->st == '1')
+                            <td>รอรับงาน</td>
+                            @elseif($row->st == '2')
+                            <td>กำลังปฎิบัติ({{$row->admin->name}})</td>
+                            @elseif($row->st == '3')
+                            <td>ปิดงานแล้ว({{$row->admin->name}})</td>
+                            @elseif($row->st == '4')
+                            <td>ยกเลิก</td>
+                            @endif
                             <td>
                                 <a href="{{route('repair_detail',['id'=>$row->id])}}"><span class="material-symbols-outlined">
                                         visibility
-                                    </span></a>&emsp;
-                                <a href="{{route('repair_accept',['id'=>$row->id])}}"><span class="material-symbols-outlined">
-                                        how_to_reg
                                     </span></a>
                             </td>
 

@@ -69,6 +69,9 @@
     <form action="{{route('request_repair')}}" method="post">
         @csrf
         <div class="container">
+            <center>
+                <h1>แจ้งซ่อมอุปกร์ IT</h1>
+            </center>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card my-3">
@@ -136,6 +139,32 @@
             </div>
         </div>
     </form>
+    <div class="container">
+        <hr>
+        <div class="table-responsive">
+            <div class="card my-3">
+                <div class="card-header">
+                    รายการซ่อม
+                </div>
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">รหัสทรัพสิน</th>
+                            <th scope="col">รายระเอียด</th>
+                            <th scope="col">ผู้แจ้ง</th>
+                            <th scope="col">วันที่</th>
+                            <th scope="col">สถานะ</th>
+                            <th scope="col"></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
 </body>
 <script type="text/javascript">
     function handleSelect(elm) {

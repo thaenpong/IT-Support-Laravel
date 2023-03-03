@@ -83,4 +83,5 @@ Route::middleware([
     Route::get('/repair/own', [repair_ctl::class, 'ownrepair'])->name('ownrepair');
     Route::get('/repair/all', [repair_ctl::class, 'allrepair'])->name('allrepair');
     Route::post('/repair/donerepair/{id}', [repair_ctl::class, 'donerepair'])->name('donerepair');
+    Route::get('/repair/delete/{id}', [repair_ctl::class, 'delete_re'])->name('delete_re');
 });

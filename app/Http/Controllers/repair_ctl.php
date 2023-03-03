@@ -19,8 +19,9 @@ class repair_ctl extends Controller
 
     public function detail(Request $request, $id)
     {
+        $admin = Auth::user()->id;
         $data = request_repair::where('id', $id)->withTrashed()->get()->first();
-        return view('repair.detail')->with('data', $data);
+        return view('repair.detail')->with('data', $data)->with('admin', $admin);
     }
 
     public function accept($id)
@@ -60,6 +61,17 @@ class repair_ctl extends Controller
         request_repair::find($id)->delete();
         //$repair->st_be = $request->st_be;
         //$repair->save();
+        return redirect()->route('repair_detail', ['id' => $id]);
+    }
+
+    public function delete_re($id)
+    {
+        $repair = request_repair::find($id);
+        $repair->st = '4';
+        $repair->update();
+
+        request_repair::find($id)->delete();
+
         return redirect()->route('repair_detail', ['id' => $id]);
     }
 }
