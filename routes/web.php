@@ -9,6 +9,7 @@ use App\Models\request_repair as req_repair;
 use App\Models\department;
 use App\Models\employee;
 use App\Models\registration;
+use App\Models\request_repair;
 use Laravel\Jetstream\Rules\Role;
 use Illuminate\Http\Request;
 
@@ -26,22 +27,37 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    $data = registration::all();
-    $emp = employee::all();
-    return view('welcome')->with('data', $data)->with('emp', $emp);
+    $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
+    $emp = employee::all('name');
+    $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+    return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair);
 })->name('index');
 
 
 Route::post('/request', function (Request $request) {
-    $emp = employee::select('id')->where('name', $request->name)->first();
-    //dd($emp->id);
-    $req = new req_repair();
-    $req->emp_id = $emp->id;
-    $req->regis_id = $request->res_id;
-    $req->emp_behave = $request->behave;
-    $req->st = '1';
-    $req->save();
-    return redirect()->route('index');
+    try {
+        $emp = employee::select('id')->where('name', $request->name)->first();
+
+        //dd($emp->id);
+        $req = new req_repair();
+        $req->emp_id = $emp->id;
+        $req->regis_id = $request->res_id;
+        $req->emp_behave = $request->behave;
+        $req->st = '1';
+        $req->save();
+
+        $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
+        $emp = employee::all('name');
+        $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+        return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair)->with('err', '1');
+    } catch (\Exception $e) {
+
+
+        $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
+        $emp = employee::all('name');
+        $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+        return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair)->with('err', '2');
+    }
 })->name('request_repair');
 
 Route::middleware([
@@ -84,4 +100,5 @@ Route::middleware([
     Route::get('/repair/all', [repair_ctl::class, 'allrepair'])->name('allrepair');
     Route::post('/repair/donerepair/{id}', [repair_ctl::class, 'donerepair'])->name('donerepair');
     Route::get('/repair/delete/{id}', [repair_ctl::class, 'delete_re'])->name('delete_re');
+    Route::get('/repair/download/{id}', [repair_ctl::class, 'download'])->name('download');
 });

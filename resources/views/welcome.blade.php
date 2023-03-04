@@ -15,11 +15,13 @@
 <script>
     $(document).ready(function() {
         $("#registration_check").on("click", function() {
-            var value = $('#registration_search').val().toLowerCase();
-            $("#registration tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-            $('#registration').show();
+            if ($('#registration_search').val() != '') {
+                var value = $('#registration_search').val().toLowerCase();
+                $("#registration tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+                $('#registration').show();
+            }
         });
     });
 </script>
@@ -70,7 +72,7 @@
         @csrf
         <div class="container">
             <center>
-                <h1>แจ้งซ่อมอุปกร์ IT</h1>
+                <h1>แจ้งซ่อมอุปกรณ์ IT</h1>
             </center>
             <div class="row">
                 <div class="col-md-6">
@@ -93,6 +95,22 @@
                             <div class="input-group mb-3">
                                 <textarea class="form-control" aria-label="With textarea" placeholder="รายระเอียด" name="behave" required></textarea>
                             </div>
+                            @if(!empty($err))
+                            @if($err == '2')
+                            <div>
+                                <center>
+                                    <p class="text-danger">ข้อมูลไม่ถูกต้อง</p>
+                                </center>
+                            </div>
+                            @else
+                            <div>
+                                <center>
+                                    <p class="text-success">บันทึกข้อมูลสำเร็จ</p>
+                                </center>
+                            </div>
+                            @endif
+
+                            @endif
                             <input type="submit" value="บันทึก" class="form-control btn btn-success">
                         </div>
                     </div>
@@ -154,14 +172,25 @@
                             <th scope="col">รายระเอียด</th>
                             <th scope="col">ผู้แจ้ง</th>
                             <th scope="col">วันที่</th>
-                            <th scope="col">สถานะ</th>
-                            <th scope="col"></th>
-                            <th></th>
+                            <th scope="col">รับงาน</th>
                         </tr>
                     </thead>
                     <tbody>
-
-
+                        @php($i=1)
+                        @foreach($repair as $row)
+                        <tr>
+                            <th scope="row">{{$i++}}</th>
+                            <td>{{$row->regis->property_key->key}}{{$row->regis->property_code}}</td>
+                            <td>{{$row->emp_behave}}</td>
+                            <td>{{$row->emp->name}}</td>
+                            <td>{{$row->created_at->format('d/m/Y')}}</td>
+                            @if($row->st == '1')
+                            <td class="text-primary">ยังไม่รับงาน</td>
+                            @elseif($row->st == '2')
+                            <td class="text-success">{{$row->admin->name}}</td>
+                            @endif
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

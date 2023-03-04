@@ -66,13 +66,13 @@
                                             <div class="mb-3">
                                                 <label for="refer" class="form-label">สถานะ(Before)</label>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="st_be" id="st_be1" value="รับซ่อม" checked>
+                                                    <input class="form-check-input" type="radio" name="st_be" id="st_be1" value="1" checked>
                                                     <label class="form-check-label" for="st_be1">
                                                         รับซ่อม
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="st_be" id="st_be2" value="ส่งซ่อมภายนอก">
+                                                    <input class="form-check-input" type="radio" name="st_be" id="st_be2" value="2">
                                                     <label class="form-check-label" for="st_be2">
                                                         ส่งซ่อมภายนอก
                                                     </label>
@@ -82,13 +82,13 @@
                                             <div class="mb-3">
                                                 <label for="refer" class="form-label">สถานะ(After)</label>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="st_af" id="st_af1" value="ใช้งานได้" checked>
+                                                    <input class="form-check-input" type="radio" name="st_af" id="st_af1" value="1" checked>
                                                     <label class="form-check-label" for="st_af1">
                                                         ใช้งานได้
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="st_af" id="st_af2" value="ใช้งานไม่ได้">
+                                                    <input class="form-check-input" type="radio" name="st_af" id="st_af2" value="2">
                                                     <label class="form-check-label" for="st_af2">
                                                         ใช้งานไม่ได้
                                                     </label>
