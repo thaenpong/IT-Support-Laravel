@@ -36,23 +36,26 @@ Route::get('/', function () {
 
 Route::post('/request', function (Request $request) {
     try {
-        $emp = employee::select('id')->where('name', $request->name)->first();
+        $check = request_repair::latest()->first();
+        if ($check->number == 'null') {
+            $emp = employee::select('id')->where('name', $request->name)->first();
 
-        //dd($emp->id);
-        $req = new req_repair();
-        $req->emp_id = $emp->id;
-        $req->regis_id = $request->res_id;
-        $req->emp_behave = $request->behave;
-        $req->st = '1';
-        $req->save();
-
+            //dd($emp->id);
+            $req = new req_repair();
+            $req->emp_id = $emp->id;
+            $req->number = 1;
+            $req->regis_id = $request->res_id;
+            $req->emp_behave = $request->behave;
+            $req->st = '1';
+            $req->save();
+        } else {
+        }
         $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
         $emp = employee::all('name');
         $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+
         return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair)->with('err', '1');
     } catch (\Exception $e) {
-
-
         $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
         $emp = employee::all('name');
         $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');

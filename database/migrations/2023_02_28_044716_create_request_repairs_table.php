@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('request_repairs', function (Blueprint $table) {
             $table->id();
             $table->integer('emp_id');
+            $table->integer('number');
             $table->integer('regis_id');
             $table->string('emp_behave');
             $table->integer('admin_id')->nullable();
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('st')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->unique('id');
         });
     }
 
