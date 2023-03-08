@@ -161,7 +161,7 @@
 -->
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#unregis">
-                            Unregis
+                            ถอดถอน
                         </button>
 
                         <!-- Modal -->
@@ -191,15 +191,99 @@
                             </div>
                         </div>
 
-                        <a class="btn btn-secondary mb-3 " href="{{ url()->previous() }}">Back</a>
+                        <a class="btn btn-secondary mb-3 " href="{{ url()->previous() }}">กลับ</a>
 
                         @else
-                        <a class="btn btn-info mb-3 " href="{{ route('unregistration',['key' => 'all']) }}">Back</a>
+                        <a class="btn btn-info mb-3 " href="{{ route('unregistration',['key' => 'all']) }}">กลับ</a>
                         <a class="btn btn-primary mb-3" href="{{route('unregispdf',['id'=> $registration->id])}}" target="_blank">Download</a>
                         @endif
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="container py-3">
+        <div class="py-3">
+            <div class="card">
+                <div class="card-header">
+                    ประวัติผู้ใช้
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">พนักงาน</th>
+                                    <th scope="col">วันที่เริ่มใช้</th>
+                                    <th scope="col">โดย</th>
+                                    <th scope="col">ถึงวันที่</th>
+                                    <th scope="col">โดย</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php($i=1)
+                                @foreach($logs as $row)
+                                <tr>
+                                    <th scope="row">{{$i++}}</th>
+                                    <td>{{$row->emp->name}}</td>
+                                    <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                    <td>{{$row->admin_in->name}}</td>
+                                    @if($row->deleted_at == "")
+                                    <td>ปัจจุบัน</td>
+                                    <td></td>
+                                    @else
+                                    <td>{{$row->deleted_at->format('d-m-Y')}}</td>
+                                    <td>{{$row->admin_out->name}}</td>
+                                    @endif
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-3">
+            <div class="card">
+                <div class="card-header">
+                    ประวัติการซ่อม
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">พนักงาน</th>
+                                    <th scope="col">วันที่</th>
+                                    <th scope="col">อาการ</th>
+                                    <th scope="col">ผู้รับผิดชอบ</th>
+                                    <th scope="col">แก้ไข</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php($i=1)
+                                @foreach($logs_re as $row)
+                                <tr>
+                                    <th scope="row">{{$i++}}</th>
+                                    <td>{{$row->emp->name}}</td>
+                                    <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                    <td>{{$row->emp_behave}}</td>
+                                    @if($row->admin_id == "")
+                                    <td>ยังไม่รับงาน</td>
+                                    @else
+                                    <td>{{$row->admin->name}}</td>
+                                    @endif
+                                    <td>{{$row->admin_behave}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function (Blueprint $table) {
-            $table->string('card_id')->nullable()->after('id');
-            $table->string('st')->nullable()->after('department_id');
+        Schema::table('unregistrations', function (Blueprint $table) {
+            $table->string('number')->nullable()->after('id');
         });
     }
 
@@ -26,8 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

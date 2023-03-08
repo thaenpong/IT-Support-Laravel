@@ -25,4 +25,10 @@ class department_ctl extends Controller
         $department = department::find($id)->delete();
         return redirect()->route('employee');
     }
+
+    public function edit($id, Request $request)
+    {
+        department::where('id', $id)->update(['name' => $request->depart_name]);
+        return redirect()->route('employee');
+    }
 }

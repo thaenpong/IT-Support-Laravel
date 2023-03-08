@@ -28,7 +28,9 @@
                                             <td><a href="{{route('employee_detail',['id' => $row->id])}}" style="text-decoration: none">{{$row->name}}</a></td>
                                             <td><a href="{{route('employee_detail',['id' => $row->id])}}" style="text-decoration: none">{{$row->nick_name}}</a></td>
                                             <td>{{$row->department->name}}</td>
-                                            <td><a class="btn btn-primary" href="">Edit</a></td>
+                                            <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#empedit{{$row->id}}">
+                                                    แก้ไข
+                                                </button></td>
                                             <td>
                                                 <?php
                                                 if ($row->id == 1) {
@@ -41,6 +43,45 @@
                                                 <a class="<?= $clss ?>" href="{{ route('employee_delete', ['id' => $row->id]) }}">Delete</a>
                                             </td>
                                         </tr>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="empedit{{$row->id}}" tabindex="-1" aria-labelledby="unregisLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="unregisLabel">แก้ไขข้อมูลพนักงาน </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{route('employee_edit',['id'=>$row->id])}}" method="post">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="refer" class="form-label">ชื่อจริง</label>
+                                                                <input type="text" class="form-control" placeholder="ชื่อแผนก" required name="name" value="{{$row->name}}"></input>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="refer" class="form-label">ชื่อเล่น</label>
+                                                                <input type="text" class="form-control" placeholder="ชื่อแผนก" required name="nick_name" value="{{$row->nick_name}}"></input>
+                                                            </div>
+                                                            <div class="input-group my-3 has-validation">
+                                                                <label class="input-group-text" for="Department">Department</label>
+                                                                <select name="depart_id" class="form-select" id="Department" required>
+                                                                    <option value="{{$row->department_id}}">{{$row->department->name}}</option>
+                                                                    @foreach($department_select as $row)
+                                                                    <option value="{{$row->id}}">{{$row->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <input type="hidden" name="id" value="{{$row->id}}">
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                                                <button type="submit" class="btn btn-primary btn-warning">บันทึก</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -59,15 +100,15 @@
                                 @csrf
                                 <div class="input-group my-3 has-validation">
                                     <label class="input-group-text" for="property_code">Name</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <input type="text" class="form-control" name="name" required>
                                 </div>
                                 <div class="input-group my-3 has-validation">
                                     <label class="input-group-text" for="nickname">Nick Name</label>
-                                    <input type="text" class="form-control" name="nick_name">
+                                    <input type="text" class="form-control" name="nick_name" required>
                                 </div>
                                 <div class="input-group my-3 has-validation">
                                     <label class="input-group-text" for="Department">Department</label>
-                                    <select name="department_id" class="form-select" id="Department">
+                                    <select name="department_id" class="form-select" id="Department" required>
                                         @foreach($department_select as $row)
                                         <option value="{{$row->id}}">{{$row->name}}</option>
                                         @endforeach
@@ -107,15 +148,40 @@
                                         @php($i=1)
                                         @foreach($department as $row)
                                         <tr>
-                                            <td>{{$i++}}</td>
+                                            <td scope="col">{{$i++}}</td>
                                             <td>{{$row->name}}</td>
-                                            <td></td>
-                                            <td><a class="btn btn-primary disabled" href="">Edit</a>
-                                                <a class="btn btn-warning disabled
-                                                
-                                                " href="{{ route('department_delete', ['id' => $row->id]) }}">Delete</a>
+                                            <td>{{$row->employeesCount()}}</td>
+                                            <td> <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit{{$row->id}}">
+                                                    แก้ไข
+                                                </button>
                                             </td>
                                         </tr>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="edit{{$row->id}}" tabindex="-1" aria-labelledby="unregisLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="unregisLabel">แก้ไขข้อมูลแผนก </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{route('department_edit',['id'=>$row->id])}}" method="post">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label for="refer" class="form-label">ชื่อแผนก</label>
+                                                                <input type="text" class="form-control" placeholder="ชื่อแผนก" required name="depart_name" value="{{$row->name}}"></input>
+                                                            </div>
+                                                            <input type="hidden" name="id" value="{{$row->id}}">
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                                                <button type="submit" class="btn btn-primary btn-warning">บันทึก</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
 
                                     </tbody>
@@ -135,7 +201,7 @@
                                 @csrf
                                 <div class="input-group my-3 has-validation">
                                     <label class="input-group-text" for="property_code">Name</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <input type="text" class="form-control" name="name" required>
                                 </div>
                                 @error('name')
                                 <span>{{$message}}</span>

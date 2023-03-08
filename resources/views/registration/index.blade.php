@@ -39,8 +39,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-2">
-
+                <div class="col-md-2 py-2">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary col-md-12" data-bs-toggle="modal" data-bs-target="#newcode" id="modalbut">
+                        เพิ่มหมวดใหม่
+                    </button>
                 </div>
                 <div class="col-md-2 py-2">
                     <a href="{{route('registration_export')}}" class="form-control btn btn-success">รายงาน</a>
@@ -106,9 +109,37 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-                function handleSelect(elm) {
-                    window.location = elm.value;
-                }
-            </script>
+            <!-- Modal -->
+            <div class="modal fade" id="newcode" tabindex="-1" aria-labelledby="newcode" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newcode">เพิ่มหมวดใหม่</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{route('property_new')}}" method="post">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="key" class="form-label pt-1">ตัวอักษรย่อ</label>
+                                    <input type="text" class="form-control pb-1" id="key" name="key" placeholder="" require>
+                                    <label for="name" class="form-label pt-1">ชื่อ</label>
+                                    <input type="text" class="form-control pb-1" id="refer" name="name" placeholder="" require>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                <button type="submit" class="btn btn-primary btn-primary">บันทึก</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function handleSelect(elm) {
+                window.location = elm.value;
+            }
+        </script>
 </x-app-layout>

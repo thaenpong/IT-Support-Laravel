@@ -18,4 +18,8 @@ class department extends Model
     {
         return $this->hasOne(employee::class, 'id', 'department_id');
     }
+    public function employeesCount()
+    {
+        return $this->hasMany(employee::class, 'department_id')->count();
+    }
 }

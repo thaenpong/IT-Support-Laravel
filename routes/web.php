@@ -36,20 +36,48 @@ Route::get('/', function () {
 
 Route::post('/request', function (Request $request) {
     try {
-        $check = request_repair::latest()->first();
-        if ($check->number == 'null') {
-            $emp = employee::select('id')->where('name', $request->name)->first();
+        $check = req_repair::select('number', 'created_at')->orderBy('id', 'DESC')->first();
+        $emp = employee::select('id')->where('name', $request->name)->first();
+        //dd($check);
+        if ($check == null) {
 
             //dd($emp->id);
             $req = new req_repair();
             $req->emp_id = $emp->id;
-            $req->number = 1;
+            $req->number = '1';
             $req->regis_id = $request->res_id;
             $req->emp_behave = $request->behave;
             $req->st = '1';
+            //dd($request->behave);
             $req->save();
         } else {
+
+            $d = $check->created_at->format('y');
+            $nd = date('y');
+            if ($d == $nd) {
+                $number = $check->number + 1;
+                $req = new req_repair();
+                $req->emp_id = $emp->id;
+                $req->number = $number;
+                $req->regis_id = $request->res_id;
+                $req->emp_behave = $request->behave;
+                $req->st = '1';
+                //dd($request->behave);
+                $req->save();
+            } else {
+                $number = 1;
+                $req = new req_repair();
+                $req->emp_id = $emp->id;
+                $req->number = '1';
+                $req->regis_id = $request->res_id;
+                $req->emp_behave = $request->behave;
+                $req->st = '1';
+                //dd($request->behave);
+                $req->save();
+            }
         }
+
+
         $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
         $emp = employee::all('name');
         $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
@@ -72,6 +100,9 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    //property
+    Route::post('/registration/property_new/', [registration_ctl::class, 'new_property'])->name('property_new');
+
     // Registration
     Route::get('/registration/view/{key}', [registration_ctl::class, 'index'])->name('registration');
     Route::get('/registration/new/', [registration_ctl::class, 'new'])->name('registration_new');
@@ -89,11 +120,13 @@ Route::middleware([
     Route::post('/employee/new', [employee_ctl::class, 'new'])->name('employee_new');
     Route::get('/employee/delete/{id}', [employee_ctl::class, 'delete'])->name('employee_delete');
     Route::get('/employee/detail/{id}', [employee_ctl::class, 'detail'])->name('employee_detail');
+    Route::post('/employee/edit/{id}', [employee_ctl::class, 'edit'])->name('employee_edit');
 
 
     //Department
     Route::post('/department/new', [department_ctl::class, 'new'])->name('department_new');
     Route::get('/department/delete/{id}', [department_ctl::class, 'delete'])->name('department_delete');
+    Route::post('/department/edit/{id}', [department_ctl::class, 'edit'])->name('department_edit');
 
     //repair
     Route::get('/repair', [repair_ctl::class, 'index'])->name('repair');

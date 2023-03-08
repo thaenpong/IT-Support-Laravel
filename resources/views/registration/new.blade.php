@@ -23,7 +23,7 @@
                                     <div class="card">
                                         <div class="input-group my-3 has-validation">
                                             <label class="input-group-text" for="user_id">ผู้ใช้</label>
-                                            <select name="user_id" id="" class="form-select">
+                                            <select name="user_id" id="" class="form-select" required>
                                                 @foreach($employee as $row)
                                                 <option value="{{$row->id}}">{{$row->nick_name}}</option>
                                                 @endforeach

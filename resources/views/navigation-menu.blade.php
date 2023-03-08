@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('index') }}" :active="request()->routeIs('index')">
-                        หน้าหลัก
+                        แจ้งซ่อม
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('registration',['key' => 'all']) }}" :active="request()->routeIs('registration')">
                         ทะเบียนคอมพิวเตอร์

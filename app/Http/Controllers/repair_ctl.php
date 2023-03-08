@@ -57,11 +57,12 @@ class repair_ctl extends Controller
         $repair = request_repair::find($id);
         $repair->st_be = $request->st_be;
         $repair->st_af = $request->st_af;
+        $repair->admin_date_finish = now();
         $repair->admin_behave = $request->admin_behave;
         $repair->st = '3';
         $repair->update();
 
-        request_repair::find($id)->delete();
+        //request_repair::find($id)->delete();
         //$repair->st_be = $request->st_be;
         //$repair->save();
         return redirect()->route('repair_detail', ['id' => $id]);
@@ -82,7 +83,7 @@ class repair_ctl extends Controller
     {
         $checkmark = "✔";
         //dd($checkmark);
-        $data = request_repair::withTrashed()->find($id);
+        $data = request_repair::find($id);
         define('FPDF_FONTPATH', public_path('fonts/'));
         $fpdf = new FPDF('P', 'mm', 'A4');
         $fpdf->AddPage();
@@ -91,6 +92,10 @@ class repair_ctl extends Controller
         $fpdf->AddFont('THSarabunNew', '', 'THSarabunNew.php');
         $fpdf->SetFont('THSarabunNew', '', 16);
         //---------------------------------------------------------------- User
+        $fpdf->SetX(162);
+        $fpdf->Cell(250, 10, $data->number);
+        $fpdf->SetX(176);
+        $fpdf->Cell(250, 10, iconv('UTF-8', 'cp874', $data->created_at->thaidate('y')));
         $fpdf->SetX(27);
         $fpdf->Cell(250, 42, $data->created_at->format('d'));
         $fpdf->SetX(35);
@@ -128,12 +133,22 @@ class repair_ctl extends Controller
             $fpdf->SetX(53);
             $fpdf->Image(storage_path('file\check.png'), 37, 94, 5, 5);
         }
+
+
         if ($data->st_be == '1') {
             $fpdf->SetX(53);
             $fpdf->Image(storage_path('file\check.png'), 100, 87, 5, 5);
+            $fpdf->SetX(127);
+            $fpdf->Cell(250, 159, iconv('UTF-8', 'cp874', Carbon::parse($data->admin_date_finish)->thaidate('d/m/y')));
+            $fpdf->SetX(153);
+            $fpdf->Cell(250, 159, iconv('UTF-8', 'cp874', Carbon::parse($data->admin_date_finish)->thaidate('h:i')));
         } elseif ($data->st_af == '2') {
             $fpdf->SetX(53);
             $fpdf->Image(storage_path('file\check.png'), 100, 94, 5, 5);
+            $fpdf->SetX(130);
+            $fpdf->Cell(250, 173, iconv('UTF-8', 'cp874', Carbon::parse($data->admin_date_finish)->thaidate('d/m/y')));
+            $fpdf->SetX(154);
+            $fpdf->Cell(250, 173, iconv('UTF-8', 'cp874', Carbon::parse($data->admin_date_finish)->thaidate('h:i')));
         }
         $fpdf->SetX(35);
         $fpdf->Cell(250, 187, iconv('UTF-8', 'cp874', $data->admin_behave));
