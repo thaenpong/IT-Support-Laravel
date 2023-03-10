@@ -28,7 +28,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <label for="nick_name">ผู้ใช้ : </label>
-                                        {{$registration->employee->name}} {{$registration->employee->nick_name}}
+                                        <a href="{{route('employee_detail',['id'=>$registration->employee->id])}}">{{$registration->employee->name}} {{$registration->employee->nick_name}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -227,14 +227,14 @@
                                 @foreach($logs as $row)
                                 <tr>
                                     <th scope="row">{{$i++}}</th>
-                                    <td>{{$row->emp->name}}</td>
-                                    <td>{{$row->created_at->format('d-m-Y')}}</td>
+                                    <td><a href="{{route('employee_detail',['id'=>$row->emp->id])}}">{{$row->emp->name}}</a></td>
+                                    <td>{{$row->created_at->format('d-m-Y h:i')}}</td>
                                     <td>{{$row->admin_in->name}}</td>
                                     @if($row->deleted_at == "")
                                     <td>ปัจจุบัน</td>
                                     <td></td>
                                     @else
-                                    <td>{{$row->deleted_at->format('d-m-Y')}}</td>
+                                    <td>{{$row->deleted_at->format('d-m-Y h:i')}}</td>
                                     <td>{{$row->admin_out->name}}</td>
                                     @endif
                                 </tr>

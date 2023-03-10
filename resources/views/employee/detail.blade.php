@@ -17,14 +17,12 @@
                                 <p>ชื่อจริง : </p>
                                 <p>แผนก : </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-auto">
                                 <p>{{$emp->nick_name}}</p>
                                 <p>{{$emp->name}}</p>
                                 <p>{{$emp->department->name}}</p>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

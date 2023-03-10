@@ -24,7 +24,7 @@
                     <x-jet-nav-link href="{{ route('repair') }}" :active="request()->routeIs('repair')">
                         รายการแจ้งซ่อม
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('registration_swap_get') }}" :active="request()->routeIs('repair')">
+                    <x-jet-nav-link href="{{ route('registration_swap_get') }}" :active="request()->routeIs('registration_swap_get')">
                         สับเปลี่ยนทรัพสิน
                     </x-jet-nav-link>
                 </div>

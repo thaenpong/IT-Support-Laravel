@@ -12,7 +12,7 @@
                     <div class="form-group row my-3 justify-content-center">
 
                         <div class="card text-center col-md-4 my-3" style="height: 24rem;">
-                            <a href="{{route('registration',['key' => 'all'])}}">
+                            <a href="{{route('repair')}}">
                                 <img src=" {{ URl('images/img06.png') }}" class="card-img-top">
                                 <div class="card-body ">
                                     <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">รายการแจ้งซ่อม</h5>
@@ -23,7 +23,7 @@
 
                         </div>
                         <div class="card text-center col-md-4 my-3" style="height: 24rem;">
-                            <a href="{{ route('employee') }}" class="text-decoration-none">
+                            <a href="{{ route('registration_swap_get') }}" class="text-decoration-none">
                                 <img src="{{ URl('images/img07.png') }}" class="card-img-top">
                                 <div class="card-body ">
                                     <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">เปลี่ยนทรัพย์สิน</h5>

@@ -29,7 +29,7 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
     $emp = employee::all('name');
-    $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+    $repair = request_repair::Where('st', '!=', '3')->get();
     return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair);
 })->name('index');
 
@@ -80,13 +80,13 @@ Route::post('/request', function (Request $request) {
 
         $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
         $emp = employee::all('name');
-        $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+        $repair = request_repair::Where('st', '!=', '3')->get();
 
         return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair)->with('err', '1');
     } catch (\Exception $e) {
         $data = registration::all('id', 'type', 'property_id', 'property_code', 'user_id', 'refer');
         $emp = employee::all('name');
-        $repair = request_repair::all('emp_id', 'regis_id', 'emp_behave', 'created_at', 'st', 'admin_id');
+        $$repair = request_repair::Where('st', '!=', '3')->get();
         return view('welcome')->with('data', $data)->with('emp', $emp)->with('repair', $repair)->with('err', '2');
     }
 })->name('request_repair');
@@ -115,6 +115,8 @@ Route::middleware([
     Route::get('/registration/view/unregistration/{key}', [registration_ctl::class, 'unregistration'])->name('unregistration');
     Route::get('/registration/unregispdf/{id}', [registration_ctl::class, 'unregispdf'])->name('unregispdf');
     Route::get('/registration/export', [registration_ctl::class, 'export'])->name('registration_export');
+
+
     Route::get('/registration/swap', [registration_ctl::class, 'swap_get'])->name('registration_swap_get');
     Route::post('/registration/swap', [registration_ctl::class, 'swap_post'])->name('registration_swap_post');
 

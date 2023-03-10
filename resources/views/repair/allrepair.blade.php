@@ -38,9 +38,9 @@
                         @foreach($data as $row)
                         <tr>
                             <th scope="row">{{$i++}}</th>
-                            <td>{{$row->regis->property_key->key}}{{$row->regis->property_code}}</td>
+                            <td><a href="{{route('registration_detail',['id'=>$row->regis->id])}}">{{$row->regis->property_key->key}}{{$row->regis->property_code}}</a></td>
                             <td>{{$row->emp_behave}}</td>
-                            <td>{{$row->emp->name}}</td>
+                            <td><a href="{{route('employee_detail',['id'=>$row->emp->id])}}">{{$row->emp->name}}</a></td>
                             <td>{{$row->created_at->format('d/m/Y')}}</td>
                             @if($row->st == '1')
                             <td>รอรับงาน</td>
