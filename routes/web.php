@@ -115,6 +115,12 @@ Route::middleware([
     Route::get('/registration/view/unregistration/{key}', [registration_ctl::class, 'unregistration'])->name('unregistration');
     Route::get('/registration/unregispdf/{id}', [registration_ctl::class, 'unregispdf'])->name('unregispdf');
     Route::get('/registration/export', [registration_ctl::class, 'export'])->name('registration_export');
+    Route::get('/registration/swap', [registration_ctl::class, 'swap_get'])->name('registration_swap_get');
+    Route::post('/registration/swap', [registration_ctl::class, 'swap_post'])->name('registration_swap_post');
+
+    Route::get('/registration/new/{id}', [registration_ctl::class, 'get_code'])->name('get_code');
+
+
     //Employee
     Route::get('/employee', [employee_ctl::class, 'index'])->name('employee');
     Route::post('/employee/new', [employee_ctl::class, 'new'])->name('employee_new');

@@ -1,5 +1,19 @@
 <x-app-layout>
+    <script>
+        $(document).ready(function() {
 
+            $('#property_id').click(function() {
+                var id = $(this).val(); // get the selected value from the dropdown
+                $.get("/registration/new/" + id,
+                    function(data) {
+                        var propertyCode = JSON.parse(data).property_code;
+                        var newValue = (parseFloat(propertyCode) + 0.01).toFixed(2);
+                        $('#property_code').val(newValue); // populate the input field with the data received from the server
+
+                    });
+            });
+        });
+    </script>
     <div class="py-8">
         <div class="container">
             <div class="card">
@@ -49,7 +63,7 @@
                             </div>
                             <div class="input-group my-3 has-validation">
                                 <label class="input-group-text" for="property_code">รหัส</label>
-                                <input type="text" class="form-control" name="property_code">
+                                <input type="text" class="form-control" name="property_code" id="property_code">
                             </div>
                             <div class="input-group my-3 ">
                                 <label class="input-group-text" for="property_code">หมายเลขซีเรียล</label>
@@ -78,8 +92,7 @@
                             <!--<div class="input-group my-3 ">
                                 <label class="input-group-text" for="property_code">วันที่ลงทะเบียน</label>
                                 <input type="datetime-local" name="created_at" class="form-control">
-                            </div>
--->
+                            </div> -->
                             <input class="btn btn-success text-right mb-3" type="submit" value="ลงทะเบียน">
                             <a class="btn btn-danger mb-3" href="{{route('registration',['key' => 'all'])}}">ยกเลิก</a>
                         </div>
@@ -87,6 +100,5 @@
                 </form>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>

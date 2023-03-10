@@ -49,13 +49,22 @@ class registration_ctl extends Controller
     {
         $employee = employee::all();
         $property_key = property_key::all();
+
         return view('registration.new', compact('property_key', 'employee'));
     }
+
+    public function get_code($id)
+    {
+        $data = registration::select('property_code')->where('property_id', $id)->orderby('id', 'DESC')->first();
+        echo $data;
+    }
+
     public function new_post(Request $request)
     {
         $request->validate([
             'property_code' => 'required|max:8'
         ]);
+
 
         $registration = new registration;
         $registration->property_id = $request->property_id;
@@ -69,7 +78,15 @@ class registration_ctl extends Controller
         $registration->user_id = $request->user_id;
         $registration->admin_id = Auth::user()->id;
         $registration->save();
-        return redirect()->route('registration', ['key' => 'all']);
+
+        $id = $registration->id;
+        //dd($id);
+        $logupdate = new registration_user_log;
+        $logupdate->registration_id = $id;
+        $logupdate->user_id = $request->user_id;
+        $logupdate->in_admin = Auth::user()->id;
+        $logupdate->save();
+        return redirect()->route('registration_detail', ['id' => $id]);
     }
 
     public function edit($id)
@@ -100,12 +117,12 @@ class registration_ctl extends Controller
 
                 registration_user_log::find($check->id)->update(['out_admin' => Auth::user()->id]);
                 registration_user_log::where('registration_id', $id)->delete();
+                $logupdate = new registration_user_log;
+                $logupdate->registration_id = $id;
+                $logupdate->user_id = $request->user_id;
+                $logupdate->in_admin = Auth::user()->id;
+                $logupdate->save();
             }
-            $logupdate = new registration_user_log;
-            $logupdate->registration_id = $id;
-            $logupdate->user_id = $request->user_id;
-            $logupdate->in_admin = Auth::user()->id;
-            $logupdate->save();
         } else {
             $logupdate = new registration_user_log;
             $logupdate->registration_id = $id;
@@ -125,7 +142,7 @@ class registration_ctl extends Controller
             'refer' => $request->refer,
             'user_id' => $request->user_id
         ]);
-        return redirect()->route('registration', ['key' => 'all']);
+        return redirect()->route('registration_detail', ['id' => $id]);
     }
 
     public function detail($id)
@@ -248,5 +265,63 @@ class registration_ctl extends Controller
         $table->save();
 
         return redirect()->route('registration', ['key' => 'all']);
+    }
+
+    public function swap_get(Request $request)
+    {
+        $data = registration::select('id', 'property_code', 'property_id')->get();
+        $err = '1';
+        return view('registration.swap', compact('data', 'err'));
+    }
+
+    public function swap_post(Request $request)
+    {
+
+        //dd($request);
+        $prop_key01 = substr($request->property01, 0, 3);
+        $prop_code01 = substr($request->property01, 3);
+        $prop_id01 = property_key::select('id')->where('key', $prop_key01)->first();
+        $id01 = registration::select('id', 'user_id')->where('property_id', $prop_id01->id)->where('property_code', $prop_code01)->first();
+
+
+        $prop_key01 = substr($request->property02, 0, 3);
+        $prop_code02 = substr($request->property02, 3);
+        $prop_id02 = property_key::select('id')->where('key', $prop_key01)->first();
+        $id02 = registration::select('id', 'user_id')->where('property_id', $prop_id02->id)->where('property_code', $prop_code02)->first();
+        //dd($id02->user_id);
+
+        if ($id02->id != $id01->id) {
+            //หาdatabase log
+            $check01  = registration_user_log::where('registration_id', $id01->id)->orderby('id', 'desc')->first();
+            $check02  = registration_user_log::where('registration_id', $id02->id)->orderby('id', 'desc')->first();
+            //dd($check01);
+            //ลบ log 01
+            registration_user_log::find($check01->id)->update(['out_admin' => Auth::user()->id]);
+            registration_user_log::where('registration_id', $id01->id)->delete();
+            //ลบ log 02
+            registration_user_log::find($check02->id)->update(['out_admin' => Auth::user()->id]);
+            registration_user_log::where('registration_id', $id02->id)->delete();
+            //สลับ user_id
+            registration::find($id01->id)->update(['user_id' => $id02->user_id]);
+            registration::find($id02->id)->update(['user_id' => $id01->user_id]);
+            //update log
+            $logupdate = new registration_user_log;
+            $logupdate->registration_id = $id01->id;
+            $logupdate->user_id = $id02->user_id;
+            $logupdate->in_admin = Auth::user()->id;
+            $logupdate->save();
+
+            $logupdate = new registration_user_log;
+            $logupdate->registration_id = $id02->id;
+            $logupdate->user_id = $id01->user_id;
+            $logupdate->in_admin = Auth::user()->id;
+            $logupdate->save();
+            //
+            return redirect()->route('registration_swap_get');
+        } else {
+            $data = registration::select('id', 'property_code', 'property_id')->get();
+            $err = '2';
+            return view('registration.swap', compact('data', 'err'));
+        }
     }
 }

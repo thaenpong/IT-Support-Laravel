@@ -46,11 +46,11 @@
                     </button>
                 </div>
                 <div class="col-md-2 py-2">
-                    <a href="{{route('registration_export')}}" class="form-control btn btn-success">รายงาน</a>
+                    <a href="{{route('registration_export')}}" class="form-control btn btn-primary">รายงาน</a>
 
                 </div>
                 <div class="col-md-2 py-2">
-                    <a href="{{route('registration_new')}}" class="form-control btn btn-primary">ลงทะเบียน</a>
+                    <a href="{{route('registration_new')}}" class="form-control btn btn-success">ลงทะเบียน</a>
 
                 </div>
                 <div class="col-md-2 py-2">

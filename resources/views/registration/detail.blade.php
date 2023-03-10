@@ -262,6 +262,7 @@
                                     <th scope="col">อาการ</th>
                                     <th scope="col">ผู้รับผิดชอบ</th>
                                     <th scope="col">แก้ไข</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -269,7 +270,7 @@
                                 @foreach($logs_re as $row)
                                 <tr>
                                     <th scope="row">{{$i++}}</th>
-                                    <td>{{$row->emp->name}}</td>
+                                    <td><a href="{{route('employee_detail',['id'=>$row->emp->id])}}">{{$row->emp->name}}</a></td>
                                     <td>{{$row->created_at->format('d-m-Y')}}</td>
                                     <td>{{$row->emp_behave}}</td>
                                     @if($row->admin_id == "")
@@ -278,6 +279,9 @@
                                     <td>{{$row->admin->name}}</td>
                                     @endif
                                     <td>{{$row->admin_behave}}</td>
+                                    <td><a href="{{route('repair_detail',['id'=>$row->id])}}"><span class="material-symbols-outlined">
+                                                visibility
+                                            </span></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

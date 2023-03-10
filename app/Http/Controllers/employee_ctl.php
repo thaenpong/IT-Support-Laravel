@@ -7,6 +7,7 @@ use App\Models\department;
 use App\Models\employee;
 use App\Models\property_key;
 use App\Models\registration;
+use App\Models\request_repair;
 
 class employee_ctl extends Controller
 {
@@ -48,7 +49,8 @@ class employee_ctl extends Controller
     {
         $emp = employee::withTrashed()->find($id);
         $regis = registration::all()->where('user_id', $id);
-        return view('employee.detail', compact('emp', 'regis'));
+        $logs_re = request_repair::withTrashed()->where('emp_id', $id)->orderby('id', 'desc')->get();
+        return view('employee.detail', compact('emp', 'regis', 'logs_re'));
     }
 
     public function edit($id, Request $request)

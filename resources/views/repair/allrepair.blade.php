@@ -14,11 +14,12 @@
                 <a href="{{route('allrepair')}}" class="form-control btn btn-secondary">ทั้งหมด</a>
             </div>
         </div>
-        <div class="table-responsive">
-            <div class="card my-3">
-                <div class="card-header">
-                    รายการใหม่
-                </div>
+
+        <div class="card my-3">
+            <div class="card-header">
+                รายการใหม่
+            </div>
+            <div class="table-responsive">
                 <table class="table text-center">
                     <thead>
                         <tr>

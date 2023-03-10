@@ -13,9 +13,9 @@
 
                         <div class="card text-center col-md-4 my-3" style="height: 24rem;">
                             <a href="{{route('registration',['key' => 'all'])}}">
-                                <img src=" {{ URl('images/f01.png') }}" class="card-img-top">
+                                <img src=" {{ URl('images/img06.png') }}" class="card-img-top">
                                 <div class="card-body ">
-                                    <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">ทะเบียนคอมพิวเตอร์และอุปกรณ์ต่อพ่วง</h5>
+                                    <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">รายการแจ้งซ่อม</h5>
                                 </div>
                             </a>
                         </div>
@@ -24,9 +24,9 @@
                         </div>
                         <div class="card text-center col-md-4 my-3" style="height: 24rem;">
                             <a href="{{ route('employee') }}" class="text-decoration-none">
-                                <img src="{{ URl('images/f02.png') }}" class="card-img-top">
+                                <img src="{{ URl('images/img07.png') }}" class="card-img-top">
                                 <div class="card-body ">
-                                    <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">พนักงานและแผนก</h5>
+                                    <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">เปลี่ยนทรัพย์สิน</h5>
                                 </div>
                             </a>
                         </div>
@@ -34,7 +34,32 @@
                     <hr>
 
                 </div>
+                <div class="form-group row my-3 justify-content-center">
+
+                    <div class="card text-center col-md-4 my-3" style="height: 24rem;">
+                        <a href="{{route('registration',['key' => 'all'])}}">
+                            <img src=" {{ URl('images/f01.png') }}" class="card-img-top">
+                            <div class="card-body ">
+                                <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">ทะเบียนคอมพิวเตอร์และอุปกรณ์ต่อพ่วง</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="card text-center col-md-4 my-3" style="height: 24rem;">
+                        <a href="{{ route('employee') }}" class="text-decoration-none">
+                            <img src="{{ URl('images/f02.png') }}" class="card-img-top">
+                            <div class="card-body ">
+                                <h5 class="card-title position-absolute bottom-0 start-50 translate-middle-x my-3">พนักงานและแผนก</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>
