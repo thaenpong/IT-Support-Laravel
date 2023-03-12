@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\repair_ctl;
+use App\Http\Controllers\repair_ctl;
 use App\Http\Controllers\registration_ctl;
 use App\Http\Controllers\employee_ctl;
 use App\Http\Controllers\department_ctl;
