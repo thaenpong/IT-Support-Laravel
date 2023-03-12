@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 use App\Models\registration;
-use App\models\employee;
-use App\models\request_repair;
+use App\Models\employee;
+use App\Models\request_repair;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Illuminate\Support\Facades\Storage;
 
