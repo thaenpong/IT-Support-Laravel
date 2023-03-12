@@ -130,7 +130,7 @@
                 <div class="col-md-8">
                     <div class="card my-3">
                         <div class="card-header">
-                            Department
+                            แผนก
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
