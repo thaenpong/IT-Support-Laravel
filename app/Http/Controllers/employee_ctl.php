@@ -22,7 +22,7 @@ class employee_ctl extends Controller
     public function new(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:20',
+            'name' => 'required|max:30',
             'nick_name' => 'required|max:15',
             'department_id' => 'required',
 
