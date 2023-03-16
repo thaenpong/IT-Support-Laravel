@@ -12,7 +12,7 @@
     <div class="container py-8">
         <div class="card">
             <div class="card-header">
-                Featured
+                รายระเอียด
             </div>
             <div class="card-body">
                 <div class="row">
